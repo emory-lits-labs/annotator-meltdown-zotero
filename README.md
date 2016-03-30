@@ -5,6 +5,13 @@ Annotator-Meltdown-Zotero is developed for
 [Annotator 2.x](https://github.com/openannotation/annotator/releases)
 and is meant to be used with [annotator-meltdown](https://github.com/emory-lits-labs/annotator-meltdown).
 
+Zotero icons are included and used for display based on [Zotero brand guidelines](https://www.zotero.org/support/brand).
+
+<a href="http://www.zotero.org/">
+  <img border="0" alt="Get Zotero" title="Get Zotero"
+  src="http://www.zotero.org/images/promote/get_zotero_80x15.gif">
+</a>
+
 ##Demo
 [View a simple demo of Annotator-Meltdown-Zotero here.](http://emory-lits-labs.github.io/annotator-meltdown-zotero/demo/)
 
@@ -14,6 +21,7 @@ Depends on [annotator-meltdown](https://github.com/emory-lits-labs/annotator-mel
 * [jquery.rest](https://github.com/jpillora/jquery.rest)
 * [bootstrap](http://getbootstrap.com/) for modal window
 * [jquery-ui](https://jqueryui.com/) autocomplete
+* [FontAwesome](https://fortawesome.github.io/Font-Awesome/)
 
 ##Using Annotator-Meltdown-Zotero
 
