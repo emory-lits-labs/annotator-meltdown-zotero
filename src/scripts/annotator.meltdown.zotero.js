@@ -124,7 +124,7 @@ function annotatorMeltdownZotero(user_options) {
 
                             // construct parenthetical markdown internal link;
                             // using zotero item key as identifier
-                            var text_citation = '([' + text_label + '](./#' + data.key + '))';
+                            var text_citation = '([' + text_label + '](#zotero-' + data.key + '))';
                             // insert in-text citation where the cursor is
                             meltdown.editor.replaceSelectedText(text_citation,
                                 "select");
@@ -143,7 +143,7 @@ function annotatorMeltdownZotero(user_options) {
                             // add the citation at the end of the annotation content
                             // using formatted citation from Zotero, but adding a named
                             // anchor for linking to in-text citation
-                            ed_content += '\n* <a name="' + data.key + '" id="' + data.key +
+                            ed_content += '\n* <a name="zotero-' + data.key + '" id="zotero-' + data.key +
                                 '"></a>' + citation.html();
                             textarea.val(ed_content);
                             // force meltdown to update the preview window
@@ -174,7 +174,7 @@ function annotatorMeltdownZotero(user_options) {
 
     // convert zotero citation references into full markdown citations
     function update_citations(annotation) {
-        var name_re = new RegExp('a name="([^"]+)"', 'gm');
+        var name_re = new RegExp('a name="zotero-([^"]+)"', 'gm');
         var matches = [], found;
 
         // if annotation includes citations, scan for zotero ids
