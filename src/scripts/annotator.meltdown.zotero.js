@@ -21,7 +21,7 @@ function annotatorMeltdownZotero(user_options) {
             '<div class="modal-body">',
                 '<label class="zotero-icon" for="zotero-lookup">Z</label>',
                 '<input id="zotero-lookup"/>',
-                '<span class="in-progress" style="display:none"><i class="fa fa-2x fa-spinner fa-spin"></i></span>',
+                '<span class="in-progress" style="display:none"><i class="fa fa-spinner fa-spin"></i></span>',
         '</div></div>',
         '</div></div>'].join('\n'));
 
@@ -148,6 +148,9 @@ function annotatorMeltdownZotero(user_options) {
                             ed_content += '\n* <a name="' + data.key + '" id="' + data.key +
                                 '"></a>' + citation.html();
                             textarea.val(ed_content);
+                            // force meltdown to update the preview window
+                            // (otherwise not triggered until user makes another keystroke)
+                            meltdown.update();
                         });
 
                     }
