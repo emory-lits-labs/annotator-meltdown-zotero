@@ -1,8 +1,11 @@
+---
+---
 #zotero-modal .zotero-icon {
     height: 32px;
     width: 32px;
     color: transparent;  /* make text Z invisible */
-    background-image: url('img/zotero_32x32.png');
+    background-image: url('http://emory-lits-labs.github.io/annotator-meltdown-zotero/src/styles/img/zotero_32x32.png');
+    background-repeat: no-repeat;
     vertical-align: top;
     margin: 0;
 }
@@ -34,7 +37,7 @@
     font-weight: bold;*/
     margin-left: 5px;  /* override default meltdown spacing */
     color: transparent !important;  /* make text Z invisible */
-    background-image: url('img/zotero_16x16.png');
+    background-image: url('http://emory-lits-labs.github.io/annotator-meltdown-zotero/src/styles/img/zotero_16x16.png');
     background-repeat: no-repeat;
     background-position: center;
     margin-top: -3px; /* bring closer in line to other controls */
