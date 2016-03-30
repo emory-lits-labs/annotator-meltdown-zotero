@@ -1,0 +1,2 @@
+url: http://emory-lits-labs.github.io/annotator-meltdown-zotero/
+exclude: ['node_modules']
