@@ -10,8 +10,6 @@ function annotatorMeltdownZotero(user_options) {
         disabled = !((options.user_id && options.token) || options.group_id);
     // if zotero credentials are not supplied, then run in disabled mode
 
-    console.log('disabled ? ' + disabled);
-
     // bootstrap modal for zotero lookup
     var modal_template = $([
         '<div id="zotero-modal" class="modal" tabindex="-1" role="dialog">',
@@ -179,9 +177,6 @@ function annotatorMeltdownZotero(user_options) {
         var name_re = new RegExp('a name="([^"]+)"', 'gm');
         var matches = [], found;
 
-        console.log('update citations, annotation text is ' + annotation.text);
-        console.log(annotation);
-
         // if annotation includes citations, scan for zotero ids
         // and attach additional data to the annotation
         if (has_citations(annotation.text)) {
@@ -207,7 +202,6 @@ function annotatorMeltdownZotero(user_options) {
 
                 promises.push(new Promise(function(resolve, reject) {
                     zotero.get_item(matches[i], 'tei', '', function(data) {
-                        console.log('fetched tei');
                         // zotero returns the citation wrapped in a listBibl
                         // element that we don't need; just extract the bibl itself
                         var tei_data = $($.parseXML(data)).find("biblStruct");
@@ -257,7 +251,6 @@ function annotatorMeltdownZotero(user_options) {
 
             // if required options are not present, disable with a message
             if (disabled) {
-                console.log('disabling zotero');
                 // load the disabled message modal template
                 $('body').append(modal_template_disabled);
 
@@ -304,9 +297,7 @@ function annotatorMeltdownZotero(user_options) {
             // update_promise.then(function(){
 
             update_citations(annotation).then(function(){
-                console.log("update promise success");
                 if (annotation.citations && citation_count != annotation.citations.length) {
-                    console.log('citation counts differ, updating');
                     _app.registry.utilities.storage.update(annotation);
                 }
             }, function() {
