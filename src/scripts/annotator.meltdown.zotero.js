@@ -286,24 +286,25 @@ function annotatorMeltdownZotero(user_options) {
             // is created, and re-save the annotation if necessary.
 
             if (disabled) { return true; }   // if zotero is disabled, do nothing
-            // use citation count to check for changes; on a new
-            // annotation we expect this to be zero no matter what
-            var citation_count = 0;
-            if (annotation.citations) {
-                citation_count = annotation.citations.length;
-            }
 
-            // var update_promise = update_citations(annotation);
-            // update_promise.then(function(){
-
-            update_citations(annotation).then(function(){
-                if (annotation.citations && citation_count != annotation.citations.length) {
-                    _app.registry.utilities.storage.update(annotation);
+            // if the annotation includes citations, make sure the
+            // associated tei is up to date
+            if (has_citations(annotation.text)) {
+                // use citation count to check for changes; on a new
+                // annotation we expect this to be zero no matter what
+                var citation_count = 0;
+                if (annotation.citations) {
+                    citation_count = annotation.citations.length;
                 }
-            }, function() {
-                // promise failure - no action
-            });
 
+                update_citations(annotation).then(function(){
+                    if (annotation.citations && citation_count != annotation.citations.length) {
+                        _app.registry.utilities.storage.update(annotation);
+                    }
+                }, function() {
+                    // promise failure - no action
+                });
+            }
         },
 
 
@@ -311,7 +312,9 @@ function annotatorMeltdownZotero(user_options) {
             if (disabled) { return true; }   // if zotero is disabled, do nothing
             // FIXME: sometimes seems to be called when annotation is
             // loaded for edit, not when the editor is closed
-            return update_citations(annotation);
+            if (has_citations(annotation.text)) {
+                return update_citations(annotation);
+            }
         }
     };
 };
