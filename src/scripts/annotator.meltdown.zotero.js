@@ -175,7 +175,7 @@ function annotatorMeltdownZotero(user_options) {
     // convert zotero citation references into full markdown citations
     function update_citations(annotation) {
         var name_re = new RegExp('a name="zotero-([^"]+)"', 'gm');
-        var matches = [], found;
+        var matches = [], found, item_id;
 
         // if annotation includes citations, scan for zotero ids
         // and attach additional data to the annotation
@@ -199,12 +199,29 @@ function annotatorMeltdownZotero(user_options) {
                 // get tei record for full metadata & easy export
                 // NOTE: tei record includes zotero item id, so not
                 // fetching or storing id separately
+                item_id = matches[i];
+
 
                 promises.push(new Promise(function(resolve, reject) {
-                    zotero.get_item(matches[i], 'tei', '', function(data) {
+                    zotero.get_item(item_id, 'tei', '', function(data) {
                         // zotero returns the citation wrapped in a listBibl
-                        // element that we don't need; just extract the bibl itself
-                        var tei_data = $($.parseXML(data)).find("biblStruct");
+                        // element that we don't need; just extract the biblitself
+                        try {
+                            var tei_data = $($.parseXML(data)).find("biblStruct");
+                        }  catch(err) {
+                            // if xml parsing fails, we get an exception
+                            console.warn('Error parsing TEI response for ' + item_id);
+                            reject();
+                            return;
+                        }
+                        // in some cases, zotero doesn't return a
+                        // tei biblStruct
+                        if (tei_data.length == 0) {
+                            console.warn('TEI citation not found for ' + item_id);
+                            reject();
+                            return;
+                        }
+
                         var tei_bibl = tei_data.get(0).outerHTML;
                         // don't duplicate an entry (could happen due to delayed processing)
                         if (annotation.citations.indexOf(tei_bibl) == -1) {
@@ -306,7 +323,6 @@ function annotatorMeltdownZotero(user_options) {
                 });
             }
         },
-
 
         beforeAnnotationUpdated: function (annotation) {
             if (disabled) { return true; }   // if zotero is disabled, do nothing
