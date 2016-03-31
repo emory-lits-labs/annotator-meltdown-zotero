@@ -206,19 +206,23 @@ function annotatorMeltdownZotero(user_options) {
                     zotero.get_item(item_id, 'tei', '', function(data) {
                         // zotero returns the citation wrapped in a listBibl
                         // element that we don't need; just extract the biblitself
+
+                        // NOTE: if an error occurs, still mark the promise
+                        // as resolved, because we want the annotation
+                        // to be saved even if something goes wrong
                         try {
                             var tei_data = $($.parseXML(data)).find("biblStruct");
                         }  catch(err) {
                             // if xml parsing fails, we get an exception
                             console.warn('Error parsing TEI response for ' + item_id);
-                            reject();
+                            resolve();
                             return;
                         }
                         // in some cases, zotero doesn't return a
                         // tei biblStruct
                         if (tei_data.length == 0) {
                             console.warn('TEI citation not found for ' + item_id);
-                            reject();
+                            resolve();
                             return;
                         }
 
