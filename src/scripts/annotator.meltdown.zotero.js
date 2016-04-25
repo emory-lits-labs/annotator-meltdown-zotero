@@ -140,7 +140,7 @@ function annotatorMeltdownZotero(user_options) {
 
                             // add a new citations section if not already present
                             if (! has_citations(ed_content)) {
-                                ed_content += '\n\n---\n### Works Cited\n';
+                                ed_content += '\n\n---\n\n### Works Cited\n';
                             }
                             // add the citation at the end of the annotation content
                             // using formatted citation from Zotero, but adding a named
