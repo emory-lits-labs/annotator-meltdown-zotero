@@ -5,6 +5,9 @@ Annotator-Meltdown-Zotero is developed for
 [Annotator 2.x](https://github.com/openannotation/annotator/releases)
 and is meant to be used with [annotator-meltdown](https://github.com/emory-lits-labs/annotator-meltdown).
 
+## License
+**annotator-meltdown-zotero** is distributed under the Apache 2.0 License.
+
 ##Demo
 [View a simple demo of Annotator-Meltdown-Zotero here.](http://emory-lits-labs.github.io/annotator-meltdown-zotero/demo/)
 
