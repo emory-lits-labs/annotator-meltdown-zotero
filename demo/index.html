@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Annotator meltdown zotero demo</title>
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <link href="styles/annotator.css" rel="stylesheet" type="text/css"/>
+
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- jquery-ui css for autocomplete -->
+    <link href="../src/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+
+    <!-- released annotator-meltdown on github -->
+    <link rel="stylesheet" type="text/css" href="http://emory-lits-labs.github.io/annotator-meltdown/build/0.3.0-pre/annotator.meltdown.min.css" />
+
+    <link href="../src/styles/annotator.meltdown.zotero.css" rel="stylesheet" type="text/css"/>
+
+    <style>
+      body {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        letter-spacing: 0.01rem;
+        font-size: 22px;
+        line-height: 1.5;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+      header, article {
+        width: 740px;
+        margin: 2em auto;
+        position: relative;
+        z-index: 2;
+      }
+      .highlight {
+        background: rgba(255, 10, 10, 0.3);
+      }
+      .inner{
+        background: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Annotator-Meltdown-Zotero demonstration</h1>
+    </header>
+
+    <article class="content">
+      <section class="inner">
+
+<!-- notes on test content, setup -->
+<div class="small">
+<p>The text here is excerpted from the beginning of
+<a href="http://www.matthewjockers.net/macroanalysisbook/lda/">“The LDA Buffet: A Topic Modeling Fable”</a>
+by Matthew Jockers (<a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA</a>).
+
+<p>Zotero lookup is configured to use the publicly accessible
+<a href="https://www.zotero.org/groups/digital_humanities_topic_modeling">Digital
+Humanities Topic Modeling</a> Zotero group library (in order to avoid using a
+private account key).</p>
+</div>
+
+<hr/>
+
+<p><em>. . . imagine a quaint town, somewhere in New England perhaps. The town is a writer’s retreat, a place they come in the summer months to seek inspiration. Melville is there, Hemingway, Joyce, and Jane Austen just fresh from across the pond. In this mythical town there is spot popular among the inhabitants; it is a little place called the “LDA Buffet.” Sooner or later all the writers go there to find themes for their novels. . . </em></p>
+<p>One afternoon Herman Melville bumps into Jane Austen at the bocce ball court, and they get to talking.</p>
+<p>&#8220;You know,&#8221; says Austen, &#8220;I have not written a thing in weeks.&#8221;</p>
+<p>&#8220;Arrrrgh,” Melville replies, “me neither.&#8221;</p>
+<p>So hand in hand they stroll down Gibbs Lane to the LDA Buffet. Now, down at the LDA Buffet no one gets fat. The buffet only serves light (leit?) motifs, themes, topics, and tropes (seasonal). Melville hands a plate to Austen, grabs another for himself, and they begin walking down the buffet line. Austen is finicky; she spoons a dainty helping of words out of the bucket marked &#8220;dancing.&#8221; A slightly larger spoonful of words, she takes from the &#8220;gossip&#8221; bucket and then a good ladle’s worth of &#8220;courtship.&#8221;</p>
+<p>Melville makes a bee line for the &#8220;whaling&#8221; trough, and after piling on an Ahab-sized handful of whaling words, he takes a smaller spoonful of &#8220;seafaring&#8221; and then just a smidgen of &#8220;cetological jargon.&#8221;</p>
+<p>The two companions find a table where they sit and begin putting all the words from their plates into sentences, paragraphs, and chapters.</p>
+<p>At one point, Austen interrupts this business: &#8220;Oh Herman, you must try a bit of this courtship.&#8221;</p>
+<p>He takes a couple of words but is not really fond of the topic. Then Austen, to her credit, asks permission before reaching across the table and sticking her fork in Melville&#8217;s pile of seafaring words, &#8220;just a taste,&#8221; she says. This work goes on for a little while; they order a few drinks and after a few hours, voila! <em>Moby Dick</em> and <em>Persuasion</em> are written . . .</p>
+<p>[<em>Now, dear reader, our story thus far provides an approximation of the first assumption made in LDA. We assume that documents are constructed out of some finite set of available topics. It is in the next part that things become a little complicated, but fear not, for you shall sample themes both grand and beautiful.</em>]</p>
+<p>. . . Filled with a sense of deep satisfaction, the two begin walking back to the lodging house. Along the way, they bump into a blurry-eyed Hemingway, who is just then stumbling out of the Rising Sun Saloon.</p>
+<p>Having taken on a bit too much cargo, Hemingway stops on the sidewalk in front of the two literati. Holding out a shaky pointer finger, and then feigning an English accent, Hemingway says: &#8220;Stand and Deliver!&#8221;</p>
+<p>To this, Austen replies, &#8220;Oh come now, Mr. Hemingway, must we do this every season?&#8221;</p>
+<p>More gentlemanly then, Hemingway replies, &#8220;My dear Jane, isn’t it pretty to think so. Now if you could please be so kind as to tell me what&#8217;s in the offing down at the LDA Buffet.&#8221;</p>
+<p>Austen turns to Melville and the two writers frown at each other. Hemingway was recently banned from the LDA Buffet. Then Austen turns toward Hemingway and holds up six fingers, the sixth in front of her now pursed lips.</p>
+<p>“Six topics!” Hemingway says with surprise, “but what are today’s themes?”</p>
+<p>“Now wouldn’t you like to know that you old sot.” Says Melville.</p>
+<p>The thousand injuries of Melville, Hemingway had borne as best he could, but when Melville ventured upon insult he vowed revenge. Grabbing their recently completed manuscripts, Hemingway turned and ran toward the South. Just before disappearing down an alleyway, he calls back to the dumbfounded writers: “All my life I&#8217;ve looked at words as though I were seeing them for the first time. . . tonight I will do so again! . . . ”</p>
+<p>[<em>Hemingway has thus overcome the first challenge of topic modeling. He has a corpus and a set number of topics to extract from it. In reality determining the number of topics to extract from a corpus is a bit trickier. If only we could ask the authors, as Hemingway has done here, things would be so much easier.</em>]</p>
+<p>. . . Armed with the manuscripts and the knowledge that there were six topics on the buffet, Hemingway goes to work.</p>
+<p>After making backup copies of the manuscripts, he then pours all the words from the originals into a giant Italian-leather attache. He shakes the bag vigorously and then begins dividing its contents into six smaller ceramic bowls, one for each topic. When each of the six bowls is full, Hemingway gets a first glimpse of the topics that the authors might have found at the LDA Buffet. Regrettably, these topics are not very good at all; in fact, they are terrible, a jumble of random unrelated words . . .</p>
+
+      </section>
+    </article>
+
+    <script type="text/javascript" src="scripts/annotator.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- Latest compiled and minified Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://emory-lits-labs.github.io/annotator-meltdown/build/0.3.0-pre/annotator.meltdown.min.js"></script>
+    <script type="text/javascript" src="../src/jquery-ui/jquery-ui.autocomplete.min.js"></script>
+    <script type="text/javascript" src="../src/scripts/jquery.rest.min.js"></script>
+    <script type="text/javascript" src="../src/scripts/zotero.js"></script>
+    <script type="text/javascript" src="../src/scripts/annotator.meltdown.zotero.js"></script>
+
+    <script type="text/javascript">
+      if (typeof annotator === 'undefined') {
+        alert("Oops! it looks like you haven't built Annotator. " +
+              "Either download a tagged release from GitHub, or build the " +
+              "package by running `make`");
+      } else {
+        var app = new annotator.App();
+
+        app.include(annotator.ui.main,{
+          element: document.querySelector('.content .inner'),
+          //enable annotator-meltdown
+          viewerExtensions: [
+            annotatormeltdown.viewerExtension
+          ],
+          editorExtensions: [
+            annotatormeltdown.getEditorExtension({min_width: '500px', 'font_awesome': true})
+          ]
+        })
+        .include(annotatorMeltdownZotero, {  // enable annotator-meltdown-zotero
+            group_id: 85759,  // group id for DH topic modeling public group
+            // user_id: ###, token: '',  user token and id would go here for user access
+            // disabled_message: 'custom message could go here',
+         });
+        app.start();
+
+      }
+    </script>
+  </body>
+</html>
