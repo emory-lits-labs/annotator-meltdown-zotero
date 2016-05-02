@@ -12,3 +12,4 @@
 *  Whenever an  annotation is saved, recognized Zotero items are pulled in TEI format and
    saved on the annotation as extra data.
 * Customizable disabled message when required Zotero credentials are not available.
+

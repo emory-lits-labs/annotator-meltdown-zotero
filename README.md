@@ -12,6 +12,9 @@ Zotero icons are included and used for display based on [Zotero brand guidelines
   src="http://www.zotero.org/images/promote/get_zotero_80x15.gif">
 </a>
 
+## License
+**annotator-meltdown-zotero** is distributed under the Apache 2.0 License.
+
 ##Demo
 [View a simple demo of Annotator-Meltdown-Zotero here.](http://emory-lits-labs.github.io/annotator-meltdown-zotero/demo/)
 
