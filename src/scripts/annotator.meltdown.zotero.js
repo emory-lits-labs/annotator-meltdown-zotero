@@ -10,8 +10,6 @@ function annotatorMeltdownZotero(user_options) {
         disabled = !((options.user_id && options.token) || options.group_id);
     // if zotero credentials are not supplied, then run in disabled mode
 
-    console.log('disabled ? ' + disabled);
-
     // bootstrap modal for zotero lookup
     var modal_template = $([
         '<div id="zotero-modal" class="modal" tabindex="-1" role="dialog">',
@@ -21,7 +19,7 @@ function annotatorMeltdownZotero(user_options) {
             '<div class="modal-body">',
                 '<label class="zotero-icon" for="zotero-lookup">Z</label>',
                 '<input id="zotero-lookup"/>',
-                '<span class="in-progress" style="display:none"><i class="fa fa-2x fa-spinner fa-spin"></i></span>',
+                '<span class="in-progress" style="display:none"><i class="fa fa-spinner fa-spin"></i></span>',
         '</div></div>',
         '</div></div>'].join('\n'));
 
@@ -126,7 +124,7 @@ function annotatorMeltdownZotero(user_options) {
 
                             // construct parenthetical markdown internal link;
                             // using zotero item key as identifier
-                            var text_citation = '([' + text_label + '](./#' + data.key + '))';
+                            var text_citation = '([' + text_label + '](#zotero-' + data.key + '))';
                             // insert in-text citation where the cursor is
                             meltdown.editor.replaceSelectedText(text_citation,
                                 "select");
@@ -145,9 +143,12 @@ function annotatorMeltdownZotero(user_options) {
                             // add the citation at the end of the annotation content
                             // using formatted citation from Zotero, but adding a named
                             // anchor for linking to in-text citation
-                            ed_content += '\n* <a name="' + data.key + '" id="' + data.key +
+                            ed_content += '\n* <a name="zotero-' + data.key + '" id="zotero-' + data.key +
                                 '"></a>' + citation.html();
                             textarea.val(ed_content);
+                            // force meltdown to update the preview window
+                            // (otherwise not triggered until user makes another keystroke)
+                            meltdown.update();
                         });
 
                     }
@@ -173,11 +174,8 @@ function annotatorMeltdownZotero(user_options) {
 
     // convert zotero citation references into full markdown citations
     function update_citations(annotation) {
-        var name_re = new RegExp('a name="([^"]+)"', 'gm');
-        var matches = [], found;
-
-        console.log('update citations, annotation text is ' + annotation.text);
-        console.log(annotation);
+        var name_re = new RegExp('a name="zotero-([^"]+)"', 'gm');
+        var matches = [], found, item_id;
 
         // if annotation includes citations, scan for zotero ids
         // and attach additional data to the annotation
@@ -201,13 +199,33 @@ function annotatorMeltdownZotero(user_options) {
                 // get tei record for full metadata & easy export
                 // NOTE: tei record includes zotero item id, so not
                 // fetching or storing id separately
+                item_id = matches[i];
+
 
                 promises.push(new Promise(function(resolve, reject) {
-                    zotero.get_item(matches[i], 'tei', '', function(data) {
-                        console.log('fetched tei');
+                    zotero.get_item(item_id, 'tei', '', function(data) {
                         // zotero returns the citation wrapped in a listBibl
-                        // element that we don't need; just extract the bibl itself
-                        var tei_data = $($.parseXML(data)).find("biblStruct");
+                        // element that we don't need; just extract the biblitself
+
+                        // NOTE: if an error occurs, still mark the promise
+                        // as resolved, because we want the annotation
+                        // to be saved even if something goes wrong
+                        try {
+                            var tei_data = $($.parseXML(data)).find("biblStruct");
+                        }  catch(err) {
+                            // if xml parsing fails, we get an exception
+                            console.warn('Error parsing TEI response for ' + item_id);
+                            resolve();
+                            return;
+                        }
+                        // in some cases, zotero doesn't return a
+                        // tei biblStruct
+                        if (tei_data.length == 0) {
+                            console.warn('TEI citation not found for ' + item_id);
+                            resolve();
+                            return;
+                        }
+
                         var tei_bibl = tei_data.get(0).outerHTML;
                         // don't duplicate an entry (could happen due to delayed processing)
                         if (annotation.citations.indexOf(tei_bibl) == -1) {
@@ -254,7 +272,6 @@ function annotatorMeltdownZotero(user_options) {
 
             // if required options are not present, disable with a message
             if (disabled) {
-                console.log('disabling zotero');
                 // load the disabled message modal template
                 $('body').append(modal_template_disabled);
 
@@ -290,34 +307,34 @@ function annotatorMeltdownZotero(user_options) {
             // is created, and re-save the annotation if necessary.
 
             if (disabled) { return true; }   // if zotero is disabled, do nothing
-            // use citation count to check for changes; on a new
-            // annotation we expect this to be zero no matter what
-            var citation_count = 0;
-            if (annotation.citations) {
-                citation_count = annotation.citations.length;
-            }
 
-            // var update_promise = update_citations(annotation);
-            // update_promise.then(function(){
-
-            update_citations(annotation).then(function(){
-                console.log("update promise success");
-                if (annotation.citations && citation_count != annotation.citations.length) {
-                    console.log('citation counts differ, updating');
-                    _app.registry.utilities.storage.update(annotation);
+            // if the annotation includes citations, make sure the
+            // associated tei is up to date
+            if (has_citations(annotation.text)) {
+                // use citation count to check for changes; on a new
+                // annotation we expect this to be zero no matter what
+                var citation_count = 0;
+                if (annotation.citations) {
+                    citation_count = annotation.citations.length;
                 }
-            }, function() {
-                // promise failure - no action
-            });
 
+                update_citations(annotation).then(function(){
+                    if (annotation.citations && citation_count != annotation.citations.length) {
+                        _app.registry.utilities.storage.update(annotation);
+                    }
+                }, function() {
+                    // promise failure - no action
+                });
+            }
         },
-
 
         beforeAnnotationUpdated: function (annotation) {
             if (disabled) { return true; }   // if zotero is disabled, do nothing
             // FIXME: sometimes seems to be called when annotation is
             // loaded for edit, not when the editor is closed
-            return update_citations(annotation);
+            if (has_citations(annotation.text)) {
+                return update_citations(annotation);
+            }
         }
     };
 };

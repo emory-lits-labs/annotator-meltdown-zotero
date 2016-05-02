@@ -16,10 +16,10 @@
 #zotero-modal .in-progress {
     position: absolute;
     top: 16px;
-    right: 20px;
+    right: 8%;
 }
 
-/* override close button so it is actually click-able */
+/* override disabled message close button so it is actually click-able */
 #zotero-modal .close {
     position: absolute;
     top: 5px;
@@ -29,9 +29,11 @@
 
 /* Zotero launcher button on meltdown control panel */
 .meltdown_control-zotero > span  {
-    /* zotero red */
+    height: auto !important;  /* override default meltdown size */
+    /* alternate non-image version using text & zotero red */
     /*color: #990000 !important;
     font-weight: bold;*/
+    margin-left: 5px;  /* override default meltdown spacing */
     color: transparent !important;  /* make text Z invisible */
     background-image: url('//emory-lits-labs.github.io/annotator-meltdown-zotero/src/styles/img/zotero_16x16.png');
     background-repeat: no-repeat;

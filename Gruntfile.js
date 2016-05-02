@@ -22,7 +22,7 @@ module.exports = function(grunt) {
     cssmin: {
       target: {
         files: {
-            'build/<%= pkg.version %>/annotator.meltdown.min.css': [
+            'build/<%= pkg.version %>/annotator.meltdown.zotero.min.css': [
                 'src/jquery-ui/jquery-ui.min.css',
                 'src/styles/annotator.meltdown.zotero.css'
              ]
