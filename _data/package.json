@@ -1,6 +1,6 @@
 {
   "name": "annotator-meltdown-zotero",
-  "version": "0.1.0-pre",
+  "version": "0.1.0",
   "repository": {
      "type": "git",
       "url": "git://github.com/emory-lits-labs/annotator-meltdown-zotero.git"
